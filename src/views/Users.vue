@@ -1,45 +1,32 @@
 <template>
   <div class="userform">
-    <div v-if="!loading">
-      <UserForm v-on:new-user="addUser"></UserForm>
-      <MyTable :users="users" v-on:delete-user-by-index="deleteUserByIndex"></MyTable>
-    </div>
-    <h5 v-else>Loading ...</h5>
+    <UserForm v-on:new-user="addUser"></UserForm>
+    <MyTable :users="users" v-on:delete-user-by-id="deleteUserById"></MyTable>
   </div>
 </template>
 
 <script>
 import UserForm from "@/components/UserForm.vue";
 import MyTable from "@/components/UserTable.vue";
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     UserForm,
     MyTable
   },
-  data() {
-    return {
-      users: [],
-      loading: true
-    };
-  },
   methods: {
     addUser: function(newUser) {
-      this.users.push(newUser);
+      this.$store.dispatch("addUser", newUser);
     },
-    deleteUserByIndex: function(index) {
-      this.users.splice(index, 1);
+    deleteUserById: function(id) {
+      this.$store.dispatch("deleteUserById", id);
     }
   },
-  mounted() {
-    console.log("mounted () : it will executed before creating the component.");
-    this.users = this.$store.state.users;
-    this.loading = false;
-  },
-  created() {
-    console.log(
-      "created () : it will executed after creating the component for render."
-    );
-    // this.users = this.$store.state.users;
+  computed: {
+    ...mapGetters({
+      users: "getUsers"
+    })
   }
 };
 </script>

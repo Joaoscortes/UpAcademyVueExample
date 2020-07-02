@@ -6,19 +6,21 @@
 
 <script>
 import UserForm from "@/components/UserForm.vue";
+import { mapGetters } from "vuex";
+
 export default {
   components: {
     UserForm
   },
-  data() {
-    return {
-      users: this.$store.state.users
-    };
-  },
   methods: {
     addUser: function(newUser) {
-      this.users.push(newUser);
+      this.$store.dispatch("addUser", newUser);
     }
+  },
+  computed: {
+    ...mapGetters({
+      users: "getUsers"
+    })
   }
 };
 </script>

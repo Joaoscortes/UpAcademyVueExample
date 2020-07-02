@@ -18,18 +18,34 @@
           <router-link class="nav-link" to="/">Home</router-link>
         </li>
         <li class="nav-item" v-if="$store.state.user.authenticated">
-          <router-link class="nav-link" to="/users">Users</router-link>
+          <router-link class="nav-link" to="/app/users">Users</router-link>
         </li>
         <li class="nav-item" v-if="$store.state.user.authenticated">
-          <router-link class="nav-link" to="/table">Table</router-link>
+          <router-link class="nav-link" to="/app/table">Table</router-link>
         </li>
         <li class="nav-item" v-if="$store.state.user.authenticated">
-          <router-link class="nav-link" to="/form">Form</router-link>
+          <router-link class="nav-link" to="/app/form">Form</router-link>
         </li>
       </ul>
       <span class="my-2 my-sm-0">
         <router-link class="nav-link" v-if="!$store.state.user.authenticated" to="/login">Login</router-link>
+        <button
+          class="nav-link btn btn-danger"
+          @click="logout"
+          v-if="$store.state.user.authenticated"
+        >Logout</button>
       </span>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout: function() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
+    }
+  }
+};
+</script>

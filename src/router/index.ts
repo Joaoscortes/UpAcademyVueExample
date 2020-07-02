@@ -19,7 +19,7 @@ const routes: Array<RouteConfig> = [
     component: Login
   },
   {
-    path: '/', component: Layout,
+    path: '/app', component: Layout,
     children: [
       {
         path: 'table',
@@ -42,11 +42,22 @@ const routes: Array<RouteConfig> = [
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresLogin) && store.state.user.authenticated == false) {
+  if (!!store.getters.getToken && store.state.user.authenticated == false) {
+    store
+      .dispatch("login", store.getters.getToken)
+      .then(() => {
+        next();
+      })
+      .catch(err => {
+        store.state.user.token = "";
+        next("/login");
+      });
+  } else if (to.matched.some(record => record.meta.requiresLogin) && store.state.user.authenticated == false) {
     next("/login")
   } else {
     next()

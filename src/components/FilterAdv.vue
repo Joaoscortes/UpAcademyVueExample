@@ -10,7 +10,6 @@
         <option value="name">Name</option>
         <option value="email">Email</option>
         <option value="password">Password</option>
-        <option value="role">Role</option>
       </select>
     </div>
     <hr />

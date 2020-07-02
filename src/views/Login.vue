@@ -20,17 +20,7 @@
           placeholder="Enter Usernane"
         />
       </div>
-      <div class="form-group">
-        <label for="inputPassword">Password</label>
-        <input
-          v-model="input.password"
-          type="password"
-          class="form-control"
-          id="inputPassword"
-          placeholder="Enter Password"
-        />
-      </div>
-      <button @click="login()" type="submit" class="btn btn-primary">Log In</button>
+      <button @click.prevent="login()" type="submit" class="btn btn-primary">Log In</button>
     </form>
     <div id="formFooter">
       <router-link to="/">Back Home</router-link>
@@ -43,19 +33,22 @@ export default {
   data() {
     return {
       input: {
-        username: "",
-        password: ""
+        username: ""
       }
     };
   },
   methods: {
     login() {
-      if (this.input.username == "admin" && this.input.password == "admin") {
-        this.$store.commit("setAuthentication", true);
-        this.$router.push("/");
-      } else {
-        console.log("The username and / or password is incorrect");
-      }
+      this.$store
+        .dispatch("login", this.input.username)
+        .then(() => this.$router.push("/"))
+        .catch(err => console.error(err));
+    }
+  },
+  created() {
+    if (!!this.$store.getters.getToken) {
+      this.input.username = this.$store.getters.getToken;
+      this.login();
     }
   }
 };

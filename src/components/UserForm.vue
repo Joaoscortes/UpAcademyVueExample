@@ -4,6 +4,18 @@
     <button class="col-12 btn btn-primary" @click="showForm = !showForm">Add User</button>
     <form @submit="onAddUser" v-if="showForm" class="mt-3">
       <div class="form-group row">
+        <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input
+            v-model="formUser.username"
+            type="name"
+            class="form-control"
+            id="inputUsername"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group row">
         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
           <input v-model="formUser.name" type="name" class="form-control" id="inputName" required />
@@ -31,6 +43,16 @@
             id="inputPassword"
             required
           />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Role</label>
+        <div class="col-sm-10">
+          <select v-model="formUser.role" class="form-control">
+            <option selected value="user">Normal</option>
+            <option value="super">Extra</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
       </div>
       <div class="text-center">

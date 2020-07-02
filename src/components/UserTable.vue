@@ -5,6 +5,7 @@
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th scope="col">Username</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Password</th>
@@ -12,12 +13,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in filterUsers" :key="index">
+          <tr v-for="(user) in filterUsers" :key="user.id">
+            <td>{{user.username}}</td>
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
             <td>{{user.password}}</td>
             <td>
-              <button @click="onDeleteUserByIndex(index)" class="btn btn-danger">Delete</button>
+              <button
+                @click="onDeleteUserById(user.id)"
+                class="btn btn-danger"
+                v-if="user.role != 'admin'"
+              >Delete</button>
             </td>
           </tr>
         </tbody>
@@ -39,13 +45,13 @@ export default {
     return {
       filter: {
         value: "",
-        key: "name"
+        key: "username"
       }
     };
   },
   methods: {
-    onDeleteUserByIndex: function(index) {
-      this.$emit("delete-user-by-index", index);
+    onDeleteUserById: function(id) {
+      this.$emit("delete-user-by-id", id);
     }
   },
   computed: {
