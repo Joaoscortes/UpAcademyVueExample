@@ -23,7 +23,7 @@
       <button @click.prevent="login()" type="submit" class="btn btn-primary">Log In</button>
     </form>
     <div id="formFooter">
-      <router-link to="/">Back Home</router-link>
+      <router-link to="/home">Back Home</router-link>
     </div>
   </div>
 </template>

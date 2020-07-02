@@ -4,18 +4,18 @@
       class="navbar-toggler"
       type="button"
       data-toggle="collapse"
-      data-target="#navbarTogglerDemo01"
-      aria-controls="navbarTogglerDemo01"
+      data-target="#navbar"
+      aria-controls="navbar"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Hidden brand</a>
+    <div class="collapse navbar-collapse" id="navbar">
+      <a class="navbar-brand">Vue Example</a>
       <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
-        <li class="nav-item active">
-          <router-link class="nav-link" to="/">Home</router-link>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/home">Home</router-link>
         </li>
         <li class="nav-item" v-if="$store.state.user.authenticated">
           <router-link class="nav-link" to="/app/users">Users</router-link>
@@ -49,3 +49,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.router-link-active {
+  background-color: #6c757d;
+  color: white !important;
+}
+</style>

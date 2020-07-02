@@ -1,6 +1,6 @@
 <template>
   <div class="userform">
-    <UserForm v-on:new-user="addUser"></UserForm>
+    <UserForm :disableColapse="true" v-on:new-user="addUser"></UserForm>
   </div>
 </template>
 

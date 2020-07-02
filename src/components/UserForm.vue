@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <hr />
-    <button class="col-12 btn btn-primary" @click="showForm = !showForm">Add User</button>
-    <form @submit="onAddUser" v-if="showForm" class="mt-3">
+    <button class="col-12 btn btn-secondary" @click="toggle">Add User</button>
+    <form @submit.prevent="onAddUser" v-if="showForm" class="mt-3">
       <div class="form-group row">
         <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
         <div class="col-sm-10">
@@ -56,7 +56,7 @@
         </div>
       </div>
       <div class="text-center">
-        <input type="submit" value="Enviar" class="btn btn-primary col-4" />
+        <input type="submit" value="Enviar" class="btn btn-success col-4" />
       </div>
     </form>
     <hr />
@@ -66,18 +66,31 @@
 <script>
 import User from "../models/User.ts";
 export default {
+  props: {
+    disableColapse: {
+      default: false,
+      type: Boolean
+    }
+  },
   data() {
     return {
-      showForm: false,
+      showForm: this.disableColapse ? true : false,
       formUser: new User()
     };
   },
   methods: {
     onAddUser: function(event) {
-      event.preventDefault();
       this.$emit("new-user", this.formUser);
       this.formUser = new User();
+    },
+    toggle: function() {
+      if (!this.disableColapse) {
+        this.showForm = !this.showForm;
+      }
     }
+  },
+  created() {
+    this.formUser.role = "user";
   }
 };
 </script>

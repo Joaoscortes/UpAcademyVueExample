@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// npm i --save axios
 import axios from 'axios'
 
 Vue.use(Vuex)

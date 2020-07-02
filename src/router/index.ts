@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
@@ -38,6 +38,10 @@ const routes: Array<RouteConfig> = [
       }
     ],
     meta: { requiresLogin: true }
+  },
+  {
+    path: '',
+    redirect: 'home'
   }
 ]
 
@@ -53,7 +57,7 @@ router.beforeEach((to, from, next) => {
       .then(() => {
         next();
       })
-      .catch(err => {
+      .catch(() => {
         store.state.user.token = "";
         next("/login");
       });
