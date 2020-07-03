@@ -51,17 +51,17 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!!store.getters.getToken && store.state.user.authenticated == false) {
+  if (!!store.getters.getToken && !store.getters.getAuthenticated) {
     store
       .dispatch("login", store.getters.getToken)
       .then(() => {
         next();
       })
       .catch(() => {
-        store.state.user.token = "";
+        store.dispatch('logout');
         next("/login");
       });
-  } else if (to.matched.some(record => record.meta.requiresLogin) && store.state.user.authenticated == false) {
+  } else if (to.matched.some(record => record.meta.requiresLogin) && !store.getters.getAuthenticated) {
     next("/login")
   } else {
     next()
