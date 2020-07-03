@@ -82,6 +82,7 @@ export default {
     onAddUser: function(event) {
       this.$emit("new-user", this.formUser);
       this.formUser = new User();
+      this.formUser.role = "user";
     },
     toggle: function() {
       if (!this.disableColapse) {

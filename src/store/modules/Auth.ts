@@ -1,6 +1,6 @@
-import axios from "axios";
-
 import { Module } from "vuex";
+
+import userApi from '@/api/User'
 
 const auth: Module<any, any> = {
   state: {
@@ -37,13 +37,9 @@ const auth: Module<any, any> = {
   actions: {
     login({ commit }, username) {
       return new Promise((resolve, reject) => {
-        axios
-          .get(`https://upacademytinder.herokuapp.com/api/users?filter={"where":{"username":"${username}"}}`)
+        userApi.login(username)
           .then(response => {
-            if (response.data.length == 0) {
-              reject("Invalid Username")
-            }
-            commit('loggedIn', response.data[0]);
+            commit('loggedIn', response);
             this.dispatch('getAllUsers');
             resolve();
           })
@@ -51,6 +47,7 @@ const auth: Module<any, any> = {
             localStorage.removeItem('token')
             reject(error)
           });
+
       })
     },
     logout({ commit }) {

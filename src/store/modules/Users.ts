@@ -1,6 +1,6 @@
-import axios from "axios";
-
 import { Module } from "vuex";
+
+import userApi from '@/api/User'
 
 const users: Module<any, any> = {
   state: {
@@ -30,26 +30,25 @@ const users: Module<any, any> = {
 
   actions: {
     getAllUsers({ commit }) {
-      axios
-        .get("https://upacademytinder.herokuapp.com/api/users")
+      userApi.get()
         .then(response => {
-          commit('setUsers', response.data)
+          commit('setUsers', response)
         })
         .catch(error => console.error(error));
     },
     addUser({ commit }, user) {
-      axios
-        .post(`https://upacademytinder.herokuapp.com/api/users/`, user)
+      userApi.add(user)
         .then((response) => {
-          commit('addUser', response.data)
+          commit('addUser', response)
         })
         .catch(error => console.error(error));
     },
     deleteUserById({ commit }, id) {
-      axios
-        .delete(`https://upacademytinder.herokuapp.com/api/users/${id}`)
-        .then(() => {
-          commit('deleteUserByIndex', this.getters.userIndex(id))
+      userApi.remove(id)
+        .then((count) => {
+          if (count == 1) {
+            commit('deleteUserByIndex', this.getters.userIndex(id))
+          }
         })
         .catch(error => console.error(error));
     }
