@@ -35,6 +35,16 @@ const routes: Array<RouteConfig> = [
         path: 'users',
         name: 'Users',
         component: () => import('../views/Users.vue')
+      },
+      {
+        path: 'dinamic',
+        name: 'Dinamic',
+        component: () => import('@/views/DinamicView.vue')
+      },
+      {
+        path: 'circlePackChart',
+        name: 'CirclePackChart',
+        component: () => import('@/views/CirclePackChart.vue')
       }
     ],
     meta: { requiresLogin: true }

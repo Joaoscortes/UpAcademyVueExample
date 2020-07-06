@@ -26,6 +26,12 @@
         <li class="nav-item" v-if="$store.getters.getAuthenticated">
           <router-link class="nav-link" to="/app/form">Form</router-link>
         </li>
+        <li class="nav-item" v-if="$store.getters.getAuthenticated">
+          <router-link class="nav-link" to="/app/CirclePackChart">Chart</router-link>
+        </li>
+        <li class="nav-item" v-if="$store.getters.getAuthenticated">
+          <router-link class="nav-link" to="/app/dinamic">Dinamic</router-link>
+        </li>
       </ul>
       <span class="my-2 my-sm-0">
         <router-link class="nav-link" v-if="!$store.getters.getAuthenticated" to="/login">Login</router-link>
